@@ -1,20 +1,50 @@
 console.log("Js working");
-import {getElement} from './utils.js/getElement.js'
+import { getElement } from "./utils.js/getElement.js";
+import { images } from "./data.js";
 
-const btnContainer=getElement('.btn-container');
-let count 
+const btnContainer = getElement(".btn-container");
 
+const sliderDOM = getElement(".slider");
 
-btnContainer.addEventListener("click",(e)=>{
+let newImages = images
+  .map((img) => {
+    return `<div class="img-container">
+    <h1>${img.id}</h1>
+    <img src="${img.img}" alt="" class="img" />
+  </div>`;
+  })
+  .join("");
 
-    const BtnDOM=e.target; 
+sliderDOM.innerHTML = newImages;
+const imgContainer = getElement(".img-container");
 
-    if(BtnDOM.classList.contains('next')){
-        console.log("its next");
+let count = 1;
+console.log(imgContainer);
 
+btnContainer.addEventListener("click", (e) => {
+  const BtnDOM = e.target;
+
+  if (BtnDOM.classList.contains("next")) {
+    if (count >= images.length - 1) {
+      count = -1;
     }
-    if(BtnDOM.classList.contains('prev')){
-        console.log("its prev");
-    }
 
-})
+    count++;
+
+    imgContainer.map((img) => {
+      img.style.transform = `translateX(-${count}00%)`;
+    });
+
+  }
+
+  if (BtnDOM.classList.contains("prev")) {
+    count--;
+    if (count < 0) {
+        count =images.length-1;
+      }
+    imgContainer.map((img) => {
+      img.style.transform = `translateX(-${count}00%)`;
+    });
+  }
+
+});
