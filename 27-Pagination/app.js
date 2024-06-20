@@ -3,7 +3,6 @@ import displayFollowers from "./displayFollowers.js";
 import paginate from "./paginate.js";
 import displayButtons from "./displayButtons.js";
 import getElement from "./getElement.js";
-import { followersFromData } from "./data.js";
 
 const title = getElement(".section-title h1");
 const btnContainer=getElement('.btn-container'); 
@@ -18,9 +17,9 @@ const setupUI=()=>{
 
 
 const init = async () => {
-//   const followers = await fetchFollowers();
+  const followers = await fetchFollowers();
   title.textContent = "pagination";
-  pages=paginate(followersFromData); 
+  pages=paginate(followers); 
   setupUI()
   
 };
